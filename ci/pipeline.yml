@@ -1,0 +1,105 @@
+---
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: v1.3.0
+resources:
+  - name: site-master
+    type: git
+    source:
+      uri: https://github.com/jsug-projects/spring-fest-2017.git
+      branch: master
+  - name: repo-master
+    type: git
+    source:
+      uri: https://github.com/jsug-projects/springfest-site-generator.git
+      branch: master
+  - name: slack-alert
+    type: slack-notification
+    source:
+      url: {{slack-webhook-url}}
+  - name: every-1h
+    type: time
+    source:
+      interval: 1h
+jobs:
+  - name: deploy-to-s3
+    serial: true
+    plan:
+      - aggregate:
+        - get: site
+          resource: site-master
+          trigger: true
+        - get: repo
+          resource: repo-master
+          trigger: true
+        - get: every-1h
+          trigger: true
+      - task: generate
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: maven
+          inputs:
+          - name: repo
+          - name: site
+          outputs:
+          - name: generated
+          caches:
+          - path: repo/cache
+          run:
+            path: bash
+            dir: repo
+            args:
+            - -c
+            - |
+              set -e
+              rm -rf ~/.m2
+              ln -fs $(pwd)/cache ~/.m2
+              mvn package -DskipTests=true
+              java -jar target/springfest-site-generator-0.0.1-SNAPSHOT.jar > ../site/index.html
+              cd ..
+              cp -ra site/* generated/
+        on_failure:
+          <<: *SLACK_FAILURE
+      - task: publish
+        params:
+          AWS_ACCESS_KEY_ID: ((s3-access-key-id))
+          AWS_SECRET_ACCESS_KEY: ((s3-secret-access-key))
+          AWS_DEFAULT_REGION: ap-northeast-1
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: mesosphere/aws-cli
+          inputs:
+          - name: generated
+          run:
+            path: sh
+            args:
+            - -c
+            - |
+              set -e
+              cd generated
+              aws s3 cp --recursive ./ s3://springfest2017.springframework.jp/
+        on_failure:
+          <<: *SLACK_FAILURE
+
+params:
+  slack_success: &SLACK_SUCCESS
+    put: slack-alert
+    params:
+      channel: '#concourse'
+      text: |
+        <!here> :white_check_mark: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* succeeded with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
+  slack_failure:  &SLACK_FAILURE
+    put: slack-alert
+    params:
+      channel: '#concourse'
+      text: |
+        <!here> :rotating_light: *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* failed with build <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_NAME>!
