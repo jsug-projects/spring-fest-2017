@@ -7,6 +7,12 @@
 	.session {
 		padding: 0 15px;
 	}
+	header .social-icons li {
+		display: inline-block;
+	}
+	.welcome {
+		padding-top: 0;
+	}
 }
 .schedule-event {
 	border-bottom: 1px solid #dde0e2;
