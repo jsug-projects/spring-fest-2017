@@ -635,14 +635,6 @@ header .social-icons ul {
    letter-spacing: 1px;
 }
 
-.services-photo h2:after {
-  content: "-->";  
-  display: block;  
-  margin: 15px auto;
-  font-size: 0.7em;
-  color: #fff;
-  letter-spacing: 1px;
-}
 
 .services h2 {
   font-size: 1.0em;
@@ -1128,14 +1120,6 @@ header .social-icons ul {
   z-index: 1;
 }
 
-.contact-photo h2:after {
-  content: "-->";  
-  display: block;  
-  margin: 15px auto;
-  font-size: 0.7em;
-  letter-spacing: 1px;
-  color: #fff;
-}
 
 .contact-photo .title-section {
   position: relative;
