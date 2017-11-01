@@ -176,6 +176,7 @@ header {
 
 header .navbar {
     margin-top: -50px;
+    z-index: 99;
 }
 
 header .navbar .nav.navbar-nav.navbar-right {
