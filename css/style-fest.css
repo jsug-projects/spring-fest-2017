@@ -70,3 +70,34 @@ section.main, section.side {
 	border-color: transparent;
 	font-size: inherit;
 }
+.map {
+	padding: 75px 60px 84px 60px;
+	text-align: center;
+}
+.map h2 {
+	font-size: 1.6em;
+	font-weight: 700;
+	font-family: "Aldrich", sans-serif;
+	word-break: break-all;
+	margin-top: 28px;
+	margin-bottom: 28px;
+}
+.map .floor-map.img-responsive {
+	margin: 0 auto;
+}
+.map .note {
+	text-align: left;
+	max-width: 750px;
+	margin: 30px auto;
+}
+.map .note ul {
+	padding-left: 15px;
+}
+@media only screen and (max-width: 768px)  {
+	.map {
+		padding: 45px 20px;
+	}
+	.map .note {
+		margin: 15px auto;
+	}
+}
