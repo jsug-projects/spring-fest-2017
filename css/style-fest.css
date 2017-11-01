@@ -18,11 +18,17 @@
 	border-bottom: 1px solid #dde0e2;
 	margin-bottom: 30px;
 	padding-bottom: 10px;
+	display: flex;
 }
 .schedule-event img.img-responsive {
 	margin: 0 auto;
 	max-width: 150px;
 	border-radius: 50%;
+}
+@media only screen and (max-width: 480px) {
+	.schedule-event img.img-responsive {
+		max-width: 100%;
+	}
 }
 .session h2 {
 	font-size: 1.6em;
@@ -46,9 +52,6 @@
 	font-size: 14px;
 	color: #8c9398;
 }
-.session p.p-small {
-	text-align: center;
-}
 .session .btn-info {
 	color: #2a963c;
 	background-color: #fff;
@@ -69,6 +72,29 @@ section.main, section.side {
 	background-color: transparent;
 	border-color: transparent;
 	font-size: inherit;
+}
+.session-description .h5-small,
+.session-description .p-small {
+	text-align: left;
+}
+.schedule-group {
+
+}
+.session-data {
+	border-right: 3px solid;
+	text-align: right;
+}
+.session-data.hall {
+	border-color: #8cdbf1;
+}
+.session-data.annex {
+	border-color: #9eebdd;
+}
+.session-data.room-113 {
+	border-color: #facae8;
+}
+.session-data.room-115 {
+	border-color: #faefbf;
 }
 .map {
 	padding: 75px 60px 84px 60px;
