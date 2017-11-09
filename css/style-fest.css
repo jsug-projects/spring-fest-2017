@@ -101,3 +101,24 @@ section.main, section.side {
 		margin: 15px auto;
 	}
 }
+.timetable {
+	border-bottom: 1px solid #dde0e2;
+	padding: 75px 60px 84px 60px;
+	text-align: center;
+}
+.timetable h2 {
+	font-size: 1.6em;
+	font-weight: 700;
+	font-family: "Aldrich", sans-serif;
+	word-break: break-all;
+	margin-top: 28px;
+	margin-bottom: 28px;
+}
+.timetable .embed {
+	margin-bottom: 15px;
+}
+.timetable .btn.btn-default {
+	color: #6db33f;
+	border-color: #6db33f;
+	font-weight: bold;
+}
