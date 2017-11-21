@@ -29,6 +29,9 @@
 	.schedule-event img.img-responsive {
 		max-width: 100%;
 	}
+	.session-time {
+		display: none;
+	}
 }
 .session h2 {
 	font-size: 1.6em;
@@ -87,6 +90,7 @@ section.main, section.side {
 .session-data {
 	border-right: 3px solid;
 	text-align: right;
+	min-width: 68px;
 }
 .session-data.hall {
 	border-color: #8cdbf1;
