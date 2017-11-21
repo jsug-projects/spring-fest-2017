@@ -80,6 +80,10 @@ section.main, section.side {
 .schedule-group {
 
 }
+.timeline {
+	background-color: #efefef;
+	margin-bottom: 20px;
+}
 .session-data {
 	border-right: 3px solid;
 	text-align: right;
