@@ -80,6 +80,15 @@ section.main, section.side {
 .session-description .p-small {
 	text-align: left;
 }
+.session-description .h5-small {
+	margin-top: 20px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.session-description .p-small {
+	margin-bottom: 2px;
+	color: #4c4c4c;
+}
 .schedule-group {
 
 }
